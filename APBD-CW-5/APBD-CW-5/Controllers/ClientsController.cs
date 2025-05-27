@@ -14,7 +14,7 @@ public class ClientsController(IDbService service): ControllerBase
         try
         {
             await service.DeleteClientAsync(id);
-            return Ok();
+            return NoContent();
         }
         catch (Exception e)
         {

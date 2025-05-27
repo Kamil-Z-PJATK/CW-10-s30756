@@ -78,6 +78,12 @@ public class DbService(S30756Context data): IDbService
             {
                 throw new ClientNotFoundException("Client " + id+" not found");
             }
+            
+            var trips=await data.ClientTrips.Where(c => c.ClientIdClient == id).FirstOrDefaultAsync();
+            if (trips !=null)
+            {
+                throw new ClientHasAssighnedTripsExceptions("Client " + id+" has assighted its trips");
+            }
             data.Clients.Remove(client);
             await data.SaveChangesAsync();
             await transaction.CommitAsync();
